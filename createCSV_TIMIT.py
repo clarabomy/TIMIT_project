@@ -19,7 +19,6 @@ path_to_allfilelist = path_to_TIMIT+"/allfilelist.txt"
 
 
 
-
 ########################## CLASSES ##########################
 class Person:
     """class for a person with every information in SPKRINFO.TXT"""
@@ -98,7 +97,7 @@ class Sound:
 def retrieveBirthDate(name):
     """retrieve date of birthdate in SPKRINFO.TXT and return it
     path is path to SPKRINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
               birth_date = line[27:35]
@@ -108,7 +107,7 @@ def retrieveBirthDate(name):
 def retrieveRecordDate(name):
     """retrieve date of record in SPKRINFO.TXT and return it
     path is path to SPKRINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
               record_date=line[17:25]
@@ -118,7 +117,7 @@ def retrieveRecordDate(name):
 def retrieveAge(name):
     """retrieve date of record and birthdate in SPKRINFO.TXT and return age
     path is path to SPKRINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
               record_date=line[17:25]
@@ -137,7 +136,7 @@ def retrieveRegion(name):
 ;                                     6 - New York City
 ;                                     7 - Western
 ;                                     8 - Army Brat (moved around))"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
                 region_int = int(line[9])
@@ -162,7 +161,7 @@ def retrieveRegion(name):
 def retrieveUse(name):
     """retrieve for which dataset (TRAIN : TRN or TEST : TST) the person used their voice
     path is path to SPKRINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
                 return line[12:15]
@@ -171,7 +170,7 @@ def retrieveUse(name):
 def retrieveHeight(name):
     """ retrieve height in ft and in from SPKRINFO.TXT, convert it to cm and return it (float round to 2)
     path is path to SPKINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
                 ft = int(line[37])
@@ -188,7 +187,7 @@ def retrieveHeight(name):
 def retrieveRace(name):
     """ retrieve race from SPKRINFO.TXT, and return it
     path is path to SPKINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
                 return line[44:47]
@@ -197,7 +196,7 @@ def retrieveRace(name):
 def retrieveEducation(name):
     """ retrieve education from SPKRINFO.TXT, and return it
     path is path to SPKINFO.TXT"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
                 return line[49:52]
@@ -225,7 +224,7 @@ def getAge_fromdates(record_date, birth_date):
 
 def getAge(name):
     """get the record and birthdate , calculate the age and return it"""
-    with open("C:/Users/arnaud/Desktop/TIMIT/TIMIT/DOC/SPKRINFO.TXT", "r") as read_file:
+    with open(path_to_SPKRINFO, "r") as read_file:
         for line in read_file:
             if(name) in line:
               record_date=line[17:25]
@@ -275,7 +274,7 @@ def writeLine(sound):
 
 ######################## MAIN ########################
 
-corpus = tu.Corpus("C:/Users/arnaud/Desktop/TIMIT/TIMIT")
+corpus = tu.Corpus(path_to_TIMIT)
 train = corpus.train
 test= corpus.test
 
