@@ -64,11 +64,11 @@ class Sound:
     def __init__ (self, Pers, name, pathToIt):
         self.Pers = Pers
         self.name = name
-        self.soundPath = path_to_TIMIT+"/"+pathToIt+".wav"
-        self.wrdPath = path_to_TIMIT+"/"+pathToIt+".wrd"
-        self.phnPath = path_to_TIMIT+"/"+pathToIt+".phn"
-        self.txtPath = path_to_TIMIT+"/"+pathToIt+".txt"
-        prompt, start, end = getPromptStartEnd(self.txtPath)
+        self.soundPath = "TIMIT/"+pathToIt+".wav"
+        self.wrdPath = "TIMIT/"+pathToIt+".wrd"
+        self.phnPath = "TIMIT/"+pathToIt+".phn"
+        self.txtPath = "TIMIT/"+pathToIt+".txt"
+        prompt, start, end = getPromptStartEnd(pathToIt+".txt")
         self.prompt = prompt
         self.start = start
         self.end = end
@@ -264,7 +264,7 @@ def getPromptStartEnd(path_to_txt):
 
 def writeLine(sound):
     """write a csv Line for every sound of TIMIT database with all possible parameters of Sound/Person """
-    s=","
+    s=";"
     p=sound.getPers()
     line = sound.getName()+s+p.getName()+s+p.getUse()+s+sound.getSoundPath()+s+sound.getWrdPath()+s+sound.getPhnPath()+s+sound.getTxtPath()+s+p.getGender()+s+p.getRegion()
     line = line +s+str(p.getAge())+s+p.getRecordDate()+s+p.getBirthDate()+s+str(p.getHeight())+s+p.getRace()+s+p.getEducation()+s+sound.getPrompt()
@@ -316,12 +316,12 @@ for person in people_test_list:
 
 
 #On écrit toutes les lignes (une par son) pour chaque son de Train database dans TRAIN.csv
-with open (path_to_TIMIT+"\TRAIN.csv", "w+") as write_file:
+with open (path_to_TIMIT+"\\train.csv", "w+") as write_file:
     for sound in sound_train_list:
         write_file.write(writeLine(sound))
 
 
 #On écrit toutes les lignes (une par son) pour chaque son de Test database dans TEST.csv
-with open (path_to_TIMIT+"\TEST.csv", "w+") as write_file:
+with open (path_to_TIMIT+"\\test.csv", "w+") as write_file:
     for sound in sound_test_list:
         write_file.write(writeLine(sound))
