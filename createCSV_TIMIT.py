@@ -244,14 +244,15 @@ def getIDFileName(name, path_to_allfilelist):
                     idList.append(line[15:-1])
     return idList
 
-def getPathToIt(nameOfSound, path_to_allfilelist):
+def getPathToIt(nameOfPerson, nameOfSound, path_to_allfilelist):
     """get path to the .WRD, .PHN, .WAV and .TXT
     with a song name and allfilelist.txt path as arguments
     used in Sound class instantiation"""
     with open(path_to_allfilelist, "r") as read_file:
         for line in read_file:
             if(nameOfSound) in line:
-                return line[:-1].upper()
+                if(nameOfPerson.lower()) in line:
+                    return line[:-1].upper()
 
 def getPromptStartEnd(path_to_txt):
     """get Prompt, and the Start/End of it and return them
@@ -302,7 +303,7 @@ for i in range (len(test.people)):
 sound_train_list=[]
 for person in people_train_list:
         for sound in getIDFileName(person.name, path_to_allfilelist):
-            this_sound = Sound(person, sound, getPathToIt(sound, path_to_allfilelist))
+            this_sound = Sound(person, sound, getPathToIt(person.name, sound, path_to_allfilelist))
             sound_train_list.append(this_sound)
 
 
@@ -310,7 +311,7 @@ for person in people_train_list:
 sound_test_list=[]
 for person in people_test_list:
         for sound in getIDFileName(person.name, path_to_allfilelist):
-            this_sound = Sound(person, sound, getPathToIt(sound, path_to_allfilelist))
+            this_sound = Sound(person, sound, getPathToIt(person.name, sound, path_to_allfilelist))
             sound_test_list.append(this_sound)
 
 
