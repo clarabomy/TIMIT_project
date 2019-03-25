@@ -49,7 +49,7 @@ def extract_features(audiofile):
     features = np.mean(lr.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T,axis=0) 
     return(features)
 
-def test_classifier(classifier, X_test, y_test):
+def test_gender_classifier(classifier, X_test, y_test):
     """Test a classifier on the test_x data towards the test_y labels and print the classification report"""
     accuracy = classifier.score(X_test, y_test)
 
@@ -62,6 +62,26 @@ def test_classifier(classifier, X_test, y_test):
 
     print("{:d} males classified as females out of {:.0f}, {:.3f} %".format(male_as_female, np.sum(y_test==0), 100*male_as_female/np.sum(y_test==0)))
     print("{:d} females classified as males out of {:.0f}, {:.3f} %\n".format(female_as_male, np.sum(y_test==1), 100*female_as_male/np.sum(y_test==1)))
+
+        
+    cm = confusion_matrix(y_test, predictions)
+    sns.heatmap(cm, annot=True, cmap="coolwarm", fmt='g')
+    
+    print(classification_report(y_test, predictions))
+
+def test_age_classifier(classifier, X_test, y_test):
+    """Test a classifier on the test_x data towards the test_y labels and print the classification report"""
+    accuracy = classifier.score(X_test, y_test)
+
+    print("Test accuracy : ", accuracy ,"\n")
+
+    predictions = classifier.predict(X_test)
+
+    younger_as_older = np.sum(np.logical_and(y_test==0,predictions==1))
+    older_as_younger = np.sum(np.logical_and(y_test==1,predictions==0))
+
+    print("{:d} young people classified as older out of {:.0f}, {:.3f} %".format(younger_as_older, np.sum(y_test==0), 100*younger_as_older/np.sum(y_test==0)))
+    print("{:d} older people classified as younger out of {:.0f}, {:.3f} %\n".format(older_as_younger, np.sum(y_test==1), 100*older_as_younger/np.sum(y_test==1)))
 
         
     cm = confusion_matrix(y_test, predictions)
