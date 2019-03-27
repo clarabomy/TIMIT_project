@@ -79,11 +79,11 @@ def test_age_classifier(classifier, X_test, y_test):
 
     predictions = classifier.predict(X_test)
 
-    younger_as_older = np.sum(np.logical_and(y_test==0,predictions==1))
-    older_as_younger = np.sum(np.logical_and(y_test==1,predictions==0))
+    younger_as_older = np.sum(np.logical_and(y_test==1,predictions==0))
+    older_as_younger = np.sum(np.logical_and(y_test==0,predictions==1))
 
-    print("{:d} young people classified as older out of {:.0f}, {:.3f} %".format(younger_as_older, np.sum(y_test==0), 100*younger_as_older/np.sum(y_test==0)))
-    print("{:d} older people classified as younger out of {:.0f}, {:.3f} %\n".format(older_as_younger, np.sum(y_test==1), 100*older_as_younger/np.sum(y_test==1)))
+    print("{:d} young people classified as older out of {:.0f}, {:.3f} %".format(younger_as_older, np.sum(y_test==1), 100*younger_as_older/np.sum(y_test==1)))
+    print("{:d} older people classified as younger out of {:.0f}, {:.3f} %\n".format(older_as_younger, np.sum(y_test==0), 100*older_as_younger/np.sum(y_test==0)))
 
         
     cm = confusion_matrix(y_test, predictions)
