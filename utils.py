@@ -59,8 +59,8 @@ def test_gender_classifier(classifier, X_test, y_test):
 
     predictions = classifier.predict(X_test)
 
-    male_as_female = np.sum(np.logical_and(y_test==1,predictions==0))
-    female_as_male = np.sum(np.logical_and(y_test==0,predictions==1))
+    male_as_female = np.sum(np.logical_and(y_test==0,predictions==1))
+    female_as_male = np.sum(np.logical_and(y_test==1,predictions==0))
 
     print("{:d} males classified as females out of {:.0f}, {:.3f} %".format(male_as_female, np.sum(y_test==0), 100*male_as_female/np.sum(y_test==0)))
     print("{:d} females classified as males out of {:.0f}, {:.3f} %\n".format(female_as_male, np.sum(y_test==1), 100*female_as_male/np.sum(y_test==1)))
