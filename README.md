@@ -1,1 +1,0 @@
-# TIMIT_project
