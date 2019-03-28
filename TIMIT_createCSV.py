@@ -69,6 +69,7 @@ class Sound:
         self.phnPath = "TIMIT/"+pathToIt+".phn"
         self.txtPath = "TIMIT/"+pathToIt+".txt"
         prompt, start, end = getPromptStartEnd(pathToIt+".txt")
+        self.phn = getPhn(pathToIt+".phn")
         self.prompt = prompt
         self.start = start
         self.end = end
@@ -84,6 +85,8 @@ class Sound:
         return self.phnPath
     def getTxtPath(self):
         return self.txtPath
+    def getPhn(self):
+        return self.phn
     def getPrompt(self):
         return self.prompt
     def getStart(self):
@@ -263,12 +266,19 @@ def getPromptStartEnd(path_to_txt):
             total_split = line.split(" ")
     return " ".join(total_split[2:-1]), total_split[0], total_split[1]
 
+def getPhn(path_to_phn):
+    results=[]
+    with open(path_to_phn, "r") as read_file:
+        for line in read_file:
+            results.append(line.split(" ")[2][:-1])
+    return " ".join(results)
+
 def writeLine(sound):
     """write a csv Line for every sound of TIMIT database with all possible parameters of Sound/Person """
     s="|"
     p=sound.getPers()
     line = sound.getName()+s+p.getName()+s+p.getUse()+s+sound.getSoundPath()+s+sound.getWrdPath()+s+sound.getPhnPath()+s+sound.getTxtPath()+s+p.getGender()+s+p.getRegion()
-    line = line +s+str(p.getAge())+s+p.getRecordDate()+s+p.getBirthDate()+s+str(p.getHeight())+s+p.getRace()+s+p.getEducation()+s+sound.getPrompt()+s+sound.getStart()+s+sound.getEnd()+"\n"
+    line = line +s+str(p.getAge())+s+p.getRecordDate()+s+p.getBirthDate()+s+str(p.getHeight())+s+p.getRace()+s+p.getEducation()+s+sound.getPhn()+s+sound.getPrompt()+s+sound.getStart()+s+sound.getEnd()+"\n"
     return line
 
 
@@ -317,13 +327,13 @@ for person in people_test_list:
 
 #On écrit toutes les lignes (une par son) pour chaque son de Train database dans TRAIN.csv
 with open (path_to_TIMIT+"\\train.csv", "w+") as write_file:
-    write_file.write("soundName|personName|TRN/TST|soundPath|wrdPath|phnPath|txtPath|gender|region|age|recordDate|birthDate|height|race|education|prompt|start|end\n")
+    write_file.write("soundName|personName|TRN/TST|soundPath|wrdPath|phnPath|txtPath|gender|region|age|recordDate|birthDate|height|race|education|phn|prompt|start|end\n")
     for sound in sound_train_list:
         write_file.write(writeLine(sound))
 
 
 #On écrit toutes les lignes (une par son) pour chaque son de Test database dans TEST.csv
 with open (path_to_TIMIT+"\\test.csv", "w+") as write_file:
-    write_file.write("soundName|personName|TRN/TST|soundPath|wrdPath|phnPath|txtPath|gender|region|age|recordDate|birthDate|height|race|education|prompt|start|end\n")
+    write_file.write("soundName|personName|TRN/TST|soundPath|wrdPath|phnPath|txtPath|gender|region|age|recordDate|birthDate|height|race|education|phn|prompt|start|end\n")
     for sound in sound_test_list:
         write_file.write(writeLine(sound))
