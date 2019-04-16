@@ -6,8 +6,9 @@ install requirements:
 
 you can use jupyter notebook to open "Speech-recognition-TIMIT.ipynb"
 
-It needs to load JSON files made with create_desc_json.py which needs the dataset to be arranged like LibriSpeech.
-arrangeTIMIT.py will arrange it so that the JSON can be made.
+(It needs to load JSON files made with create_desc_json.py which needs the dataset to be arranged like LibriSpeech.
+arrangeTIMIT.py will arrange it so that the JSON can be made.)
+=> But the JSON are already present in  \JSON directory
 
 all the other functions are used in the notebook along with explainations.
 
