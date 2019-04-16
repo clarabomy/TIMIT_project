@@ -9,6 +9,7 @@ import wave
 import librosa as lr
 
 def plot_learning_curve(est, X_train, y_train) :
+    """Display learning curves for a given classifier"""
     train_sizes, train_scores, test_scores = learning_curve(estimator=est, X=X_train, y=y_train, train_sizes=np.linspace(0.1, 1.0, 10),
                                                         cv=5,
                                                         n_jobs=-1)
@@ -29,6 +30,7 @@ def plot_learning_curve(est, X_train, y_train) :
     plt.show()
     
 def plot_roc_curve(est,X_test,y_test) :
+    """Display ROC curves for a given classifier"""
     probas = est.predict_proba(X_test)
     false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test,probas[:, 1])
     roc_auc = auc(false_positive_rate, true_positive_rate)
@@ -45,6 +47,7 @@ def plot_roc_curve(est,X_test,y_test) :
     plt.show
     
 def extract_features(audiofile):
+    """Extract MFCCs for a given audio file"""
     X, sample_rate = lr.load(audiofile, res_type='kaiser_fast')
     
     # we extract mfcc feature from data
@@ -52,7 +55,7 @@ def extract_features(audiofile):
     return(features)
 
 def test_gender_classifier(classifier, X_test, y_test):
-    """Test a classifier on the test_x data towards the test_y labels and print the classification report"""
+    """Test a gender classifier on the X_test data towards the y_test labels and print the confusion matrix and the classification report"""
     accuracy = classifier.score(X_test, y_test)
 
     print("Test accuracy : ", accuracy ,"\n")
@@ -72,7 +75,7 @@ def test_gender_classifier(classifier, X_test, y_test):
     print(classification_report(y_test, predictions))
 
 def test_age_classifier(classifier, X_test, y_test):
-    """Test a classifier on the test_x data towards the test_y labels and print the classification report"""
+    """Test an age classifier on the X_test data towards the y_test labels and print the confusion matrix and the classification report"""
     accuracy = classifier.score(X_test, y_test)
 
     print("Test accuracy : ", accuracy ,"\n")
@@ -92,6 +95,7 @@ def test_age_classifier(classifier, X_test, y_test):
     print(classification_report(y_test, predictions))
 
 def undersample(df, target_col, minority_class) :
+    """Rebalance the data for a binary classification (randomly deletes data from the majority class)"""
     df_minority = df[df[target_col] == minority_class]
     df_majority = df.drop(df_minority.index)
     ratio=len(df_minority)/len(df_majority)
@@ -100,6 +104,7 @@ def undersample(df, target_col, minority_class) :
     return df1.sample(frac=1)
 
 def model_curves(model):
+    """Display the variation curves for loss and accuracy for a given model"""
     accuracy = model.history['acc']
     val_accuracy = model.history['val_acc']
     loss = model.history['loss']
@@ -117,6 +122,7 @@ def model_curves(model):
     plt.show()
 
 def record(audio_filename):
+    """Record an audio file with a duration of 5s with the microphone"""
     FORMAT = pyaudio.paInt16
     CHANNELS = 2
     RATE = 44100
